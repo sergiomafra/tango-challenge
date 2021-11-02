@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: .
+    ports:
+      - 5000:5000
+    command:
+      gunicorn --bind 0.0.0.0:5000 api.app:app

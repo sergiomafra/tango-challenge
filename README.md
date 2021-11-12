@@ -23,7 +23,7 @@ The endpoint for new appointment creation is:
 
     /appointment
 
-It should be hit with POST method passing a JSON body with the `user_id` key corresponding to user identification and `date_and_time` key with the corresponding date and time of the appointment in ISO format.
+It should be hit with POST method passing a JSON body with the `user_id` key corresponding to user identification (positive integer) and `date_and_time` key with the corresponding date and time of the appointment in ISO format (string).
 
 #### Example:
 

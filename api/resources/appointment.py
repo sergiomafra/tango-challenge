@@ -72,6 +72,6 @@ class AppointmentListAPI(Resource):
         if id in data.keys():
             appointments = []
             for key in data[id]:
-                appointments.append(f'Date: {key} - Time: {data[id][key]}')
+                appointments.append(f'{key}T{data[id][key]}')
             return {'appointments_list': sorted(appointments)}
         return {'message': 'User does not exist.'}

@@ -8,7 +8,20 @@ data = {}
 
 class AppointmentAPI(Resource):
     '''
-    Endpoint description goes here
+    Endpoint responsable for appointment creation with validation.
+
+    Endpoint URL: <base_url>/appointment
+
+    Required fields for incoming data:
+        user_id (int): The id of the user
+        date_and_time (str): The date and the time for the appointment in ISO
+                             format.
+
+    Example of JSON raw data:
+    {
+        "user_id": 1,
+        "date_and_time": "2021-11-12T14:00"
+    }
     '''
 
     def _validate_date_and_time(self, date_and_time):
@@ -65,7 +78,12 @@ class AppointmentAPI(Resource):
 
 class AppointmentListAPI(Resource):
     '''
-    Endpoint usage description
+    Endpoint responsable for retrieving all user's appointment.
+
+    Endpoint URL: /appointment/<user_id>
+
+    params:
+        user_id (int): The id of the user
     '''
 
     def get(self, id):

@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: Appointment API
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:5001'
+    description: Local environment
+components:
+  schemas:
+    appointment_list:
+      type: object
+      properties:
+        appointments:
+          type: array
+          items:
+            type: string
+    appointment_info:
+      type: object
+      required: [user_id, date_and_time]
+      properties:
+        user_id:
+          type: integer
+          example: 1
+        date_and_time:
+          type: string
+          example: "2021-01-01T18:30"
+  parameters:
+    userId:
+      in: path
+      name: userId
+      required: true
+      schema:
+        type: integer
+        example: 1
+  responses:
+    500APIError:
+      description: A
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status_code:
+                type: integer
+                example: 500
+              message:
+                type: string
+                example: Something went wrong.
+tags:
+  - name: Appointment list
+    description: Returns all appointments for a user
+  - name: Appointment scheduler
+    description: Schudules appointments for a user
+paths:
+  /appointments/{userId}:
+    parameters:
+      - $ref: '#/components/parameters/userId'
+    get:
+      tags:
+        - Appointment list
+      responses:
+        200:
+          description: Appointment list for user ${userId}.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/appointment_list'
+        400:
+          description: Not a valid user id.
+        500:
+          $ref: '#/components/responses/500APIError'
+  /appointment:
+    parameters:
+      - in: query
+        name: data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/appointment_info'
+    post:
+      tags:
+        - Appointment scheduler
+      responses:
+        201:
+          description: Appointment schedule.
+        400:
+          description: Data is not in the correct format.
+        500:
+          $ref: '#/components/responses/500APIError'

@@ -1,8 +1,5 @@
 # Docker image
-FROM python:latest
-
-# Exposing port
-EXPOSE 5000
+FROM python:3.9-bullseye
 
 # ENV variables
 ENV ROOT=/tango-challenge
@@ -11,6 +8,10 @@ ENV PYTHONBUFFERED 1
 
 # Preparing the container
 RUN mkdir $ROOT
-COPY . $ROOT
 WORKDIR $ROOT
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt --disable-pip-version-check
+
+# Running the app
+ENTRYPOINT ["python"]
+CMD ["api/app.py"]
